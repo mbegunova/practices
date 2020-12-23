@@ -1,0 +1,28 @@
+{% extends 'chat/chat.html' %}
+{% block hide %}{% endblock %}
+{% block messages %}
+    {% for message in messages %}
+    {% if message.sender == request.user %}
+<div class="card-panel right" style="width: 75%; position: relative">
+    <div style="position: absolute; top: 0; left:3px; font-weight: bolder" class="title "><span class="purple-text text-darken-2">Вы</span></div>
+    <span class="purple-text text-darken-3">{{ message }}</span>
+    <div style="position: absolute; top: 0; right:3px; font-weight: bolder" class="title "><span class="purple-text text-darken-2">{{message.timestamp}}</span></div>
+</div>
+    {% else %}
+<div class="card-panel left purple lighten-2" style="width: 75%; position: relative">
+    <div style="position: absolute; top: 0; left:3px; font-weight: bolder" class="title text-white"><span class="white-text text-darken-2">{{ message.sender }}</span></div>
+    <span class="white-text text-darken-2">{{ message }}</span>
+<div style="position: absolute; top: 0; right:3px; font-weight: bolder" class="title text-white"><span class="white-text text-darken-2">{{ message.timestamp }}</span></div>
+</div>
+    {% endif %}
+    {% endfor %}
+<script>
+$(function () {
+    //Highlighting the user that is currently selected for chatting in the users list
+    $('#user{{ receiver.id }}').addClass('active purple lighten-5');
+    //Call receive function at an interval of 1 second to check for new messages in the database
+    setInterval(receive,1000)
+})
+</script>
+{% endblock %}
+

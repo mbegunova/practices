@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+  <html>
+    <head>
+    <title>imibiko</title>
+    <link rel="icon" href="{% static 'images/icon.png'%}" />
+
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{% static 'css/style.css' %}"  media="screen,projection"/>
+
+      <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/chat.js' %}"></script>
+    </head>
+
+    <body>
+    {% block body %}
+        <div class="section purple lighten-4 center">
+            <div class="container white-text center-align text" height="150">
+            <img src="{% static 'images/logo22.png' %}" height="170">
+
+            </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+            <div class="col s0.5"></div>
+            <div class="col s12 m8 l6 offset-m2 offset-l3">
+                <div class="section center-block">
+                <div>
+                    {% block form %}
+                    <h4 class="center-align"><span class="purple-text text-darken-0">
+                    Вход
+                    </span></h4>
+
+                       {% if messages %}
+                        <div class="alert alert-warning">
+                        <div class="container">
+                        {% for message in messages %}
+                        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        <span class="red-text text-darken-0 center">
+                        {{ message }}
+                        </span></p>
+                        {% endfor %}
+                        </div>
+                        </div>
+                        {% endif %}
+
+
+                    <form id="login-form" class="form-group" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="username" id="id_username" type="text">
+                                <label for="id_username">Имя пользователя</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="password" id="id_password" type="password">
+                                <label for="id_password">Пароль</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s8">
+                                <a href="{% url 'register' %}"><span class="purple-text text-darken-0">
+                            Нет аккаунта? Зарегистрироваться </span></a>
+                            </div>
+                            <div class="col s4">
+                            <div class="right">
+                                <button class="btn purple waves-effect waves-light pull-s12">Вход</button>
+                            </div>
+                            </div>
+                        </div>
+                    </form>
+                    {% endblock %}
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <div><span class="purple-text text-darken-0"><p class="center-align">© <script>document.write(new Date().getFullYear())</script> imibiko</span>
+</div>
+        {% endblock %}
+
+    </body>
+  </html>

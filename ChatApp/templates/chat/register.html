@@ -1,0 +1,59 @@
+{% extends 'chat/index.html' %} <!--html comment removed:  Extending index.html-->
+{% load static %}
+{% block form %} <!--html comment removed:  Overriding block form -->
+    <h4 class="center-align"><span class="purple-text text-darken-0">
+                    Регистрация
+                    </span></h4>
+    <form id="register-form" class="form-group">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="username" id="id_username" type="text" class="validate invalid">
+                <label for="id_username" data-error="Username already taken">Имя пользователя</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="password" id="id_password" type="password">
+                <label for="id_password">Пароль</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="password2" id="id_password2" type="password">
+                <label for="id_password2">Повторите пароль</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+            <div class="right">
+                <button class="btn purple waves-effect waves-light pull-s12">Зарегистрироваться</button>
+            </div>
+            </div>
+        </div>
+    </form>
+
+    <script>
+    //Script for validating user registration.
+    $(function () {
+        $('#register-form').on('submit', function (event) {
+            event.preventDefault(); //Prevent the default behavior on submit.
+            var username = $('#id_username').val();
+            var password;
+            if(username !== '') //Check if username in not blank
+            {
+                password = $('#id_password').val();
+                if(password !== '' && password === $('#id_password2').val()) //Check if password is not blank and matches with the confirmation.
+                {
+                    register(username, password); //Calling register function, which we will define in 'chat.js'
+                }
+                else{
+                    alert("Пароли не совпадают!");
+                }
+            }
+            else
+                alert("Пожалуйста, введите корректное имя!");
+        })
+    })
+    </script>
+{% endblock %}

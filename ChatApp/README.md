@@ -1,5 +1,6 @@
 
 Чат с использованием Django REST Framework
+Стиль с Materialize Framework
 
 -----------------------------
 ИНСТРУКЦИЯ ПО УСТАНОВКЕ
